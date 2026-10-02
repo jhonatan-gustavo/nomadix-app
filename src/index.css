@@ -8,6 +8,44 @@
   }
 
   body {
-    @apply bg-white font-sans text-slate-800 antialiased;
+    @apply bg-white font-sans text-ink antialiased;
+  }
+
+  /* Títulos decorativos del diseño: serif itálica de alto contraste */
+  h1,
+  h2,
+  h3 {
+    @apply font-display italic text-navy-700;
+  }
+
+  /* Foco visible consistente para navegación por teclado */
+  :focus-visible {
+    @apply outline-none ring-2 ring-orange-500/70 ring-offset-2;
+  }
+
+  /* Respeta la preferencia de movimiento reducido del sistema */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Contenedor común de todas las secciones (ancho del diseño: 1200px) */
+  .shell {
+    @apply mx-auto w-full max-w-shell px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Subrayado decorativo bajo los títulos (líneas naranja + turquesa) */
+  .title-rule {
+    @apply mt-3 h-0.5 w-40 bg-gradient-to-r from-orange-500 via-sand to-aqua-500;
   }
 }

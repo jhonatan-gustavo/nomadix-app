@@ -1,26 +1,32 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Layout from './components/Layout'
+import Home from './pages/Home'
+import NotFound from './pages/NotFound'
+import PackageDetail from './pages/PackageDetail'
+import Search from './pages/Search'
 
-// Las rutas definitivas (Home, Search, PackageDetail) se integran en la Fase 4.
-// Este esqueleto mantiene el enrutamiento operativo desde la Fase 1.
-function Placeholder({ title }) {
-  return (
-    <main className="mx-auto flex min-h-[60vh] max-w-6xl items-center justify-center px-4">
-      <h1 className="text-3xl font-bold text-slate-800">{title}</h1>
-    </main>
-  )
-}
+// Ruta base de Vite ('/nomadix-app/' en GitHub Pages, '/' en local).
+// React Router la necesita sin barra final para no duplicar segmentos.
+const basename = import.meta.env.BASE_URL.replace(/\/$/, '')
 
-function App() {
+/**
+ * Rutas de la SPA:
+ * - /               Home (hero + buscador + ofertas + destinos)
+ * - /search         Catálogo con filtros
+ * - /package/:id    Detalle del paquete
+ * - *               Página no encontrada
+ */
+export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Routes>
-        <Route path="/" element={<Placeholder title="Nomadix — Home" />} />
-        <Route path="/search" element={<Placeholder title="Nomadix — Búsqueda" />} />
-        <Route path="/package/:id" element={<Placeholder title="Nomadix — Detalle" />} />
-        <Route path="*" element={<Placeholder title="Página no encontrada" />} />
+        <Route element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/package/:id" element={<PackageDetail />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   )
 }
-
-export default App
